@@ -4,6 +4,6 @@ resource "aws_instance" "my_ec2" {
   user_data = file("userdata.sh")
 
   tags = {
-    Name = "MyTerraformEC2"
+    Name = "MyTerraformEC2-test"
   }
 }
