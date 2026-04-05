@@ -33,7 +33,7 @@ pipeline {
 
                     cd ${TF_DIR}
 
-                    terraform init -migrate-state -input=false
+                    terraform init -migrate-state -force-copy
                     terraform validate
                     terraform plan
                     terraform apply -auto-approve
