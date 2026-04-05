@@ -4,7 +4,7 @@ pipeline {
    environment {
        TF_DIR = "test"
        TF_CLI_ARGS = "-no-color"
-       AWS_DEFAULT_REGION = 'us-east-2'
+       AWS_DEFAULT_REGION = 'us-east-1'
    }
 
    stages {
@@ -15,20 +15,30 @@ pipeline {
            }
        }
 
-       stage('Inject AWS Credentials') {
+       stage('Terraform Pipeline') {
            steps {
+
                withCredentials([usernamePassword(
                    credentialsId: 'aws-creds',
                    usernameVariable: 'AWS_ACCESS_KEY_ID',
                    passwordVariable: 'AWS_SECRET_ACCESS_KEY'
                )]) {
 
-                   sh 'aws sts get-caller-identity'
+                   sh '''
+                   export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
+                   export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
+                   export AWS_DEFAULT_REGION=$AWS_DEFAULT_REGION
 
-                   dir("${TF_DIR}") {
-                       sh 'terraform init'
-                       sh 'terraform plan'
-                   }
+                   echo "=== DEBUG AWS ==="
+                   aws sts get-caller-identity
+
+                   cd ${TF_DIR}
+
+                   terraform init
+                   terraform validate
+                   terraform plan
+                   terraform apply -auto-approve
+                   '''
                }
            }
        }
