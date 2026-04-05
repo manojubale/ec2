@@ -33,7 +33,7 @@ pipeline {
 
                     cd ${TF_DIR}
 
-                    terraform init
+                    terraform init -reconfigure -input=false
                     terraform validate
                     terraform plan
                     terraform apply -auto-approve
