@@ -1,5 +1,7 @@
 # Local .terraform directories
 .terraform/
+aws/
+awscliv2.zip
 
 # .tfstate files
 *.tfstate
