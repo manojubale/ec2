@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        TF_DIR = "test"
+        TF_DIR = "dev"
         TF_CLI_ARGS = "-no-color"
         AWS_DEFAULT_REGION = "us-east-2"
     }
