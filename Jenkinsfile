@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        TF_DIR = "dev"
+        TF_DIR = "prod"
         TF_CLI_ARGS = "-no-color"
         AWS_DEFAULT_REGION = "us-east-2"
     }
@@ -11,7 +11,7 @@ pipeline {
 
         stage('Checkout - Code') {
             steps {
-                git branch: 'develop', url: 'https://github.com/manojubale/ec2.git'
+                git branch: 'main', url: 'https://github.com/manojubale/ec2.git'
             }
         }
 
