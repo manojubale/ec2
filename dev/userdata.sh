@@ -1,14 +1,10 @@
 #!/bin/bash
 
-# Update system
-apt update -y
+sudo apt update -y
+sudo apt install nginx -y
 
-# Install NGINX
-apt install nginx -y
-
-# Start and enable NGINX
-systemctl start nginx
-systemctl enable nginx
+sudo systemctl start nginx
+sudo systemctl enable nginx
 
 # Create a custom HTML page
 cat <<EOF > /var/www/html/index.html
